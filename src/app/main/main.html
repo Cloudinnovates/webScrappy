@@ -1,18 +1,26 @@
 
 
   <md-content flex id="main-content">
-    <header flex="100">
-      <acme-navbar creation-date="main.creationDate"></acme-navbar>
-    </header>
 
-    <div layout="row" layout-align="center center">
-      <div>
-        <md-input-container class="md-block">
-          <label>Enter the Website URL</label>
-          <input ng-model="url">
-        </md-input-container>
+    <div layout="column" layout-align="center center" class="search-wrapper">
+
+      <div class="md-block" layout-align="center start" layout="row">
+        <h2>Web Scrappy</h2>
       </div>
+
+        <div layout="row" layout-align="center start">
+          <md-input-container class="md-block">
+            <label>Website URL</label>
+            <input ng-model="main.url">
+          </md-input-container>
+        </div>
+
+      <div class="md-block" layout-align="center start" layout="row">
+        <md-button type="submit" class="md-raised md-primary">Scrap</md-button>
+      </div>
+
     </div>
+
 
   </md-content>
 

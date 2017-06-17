@@ -94,6 +94,12 @@ section.jumbotron {
   height: 100%;
 }
 
+.search-wrapper {
+  height: 60vh;
+  md-input-container {
+    width: 50vw;
+  }
+}
 /**
  *  Do not remove the comment below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

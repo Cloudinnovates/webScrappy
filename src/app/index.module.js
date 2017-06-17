@@ -8,6 +8,7 @@ import { GithubContributorService } from '../app/components/githubContributor/gi
 import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
 import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
+import { ReportController } from "./report-page/report.controller";
 
 angular.module('webScrappy', ['ui.router', 'ngMaterial', 'toastr'])
   .constant('malarkey', malarkey)
@@ -18,5 +19,6 @@ angular.module('webScrappy', ['ui.router', 'ngMaterial', 'toastr'])
   .service('githubContributor', GithubContributorService)
   .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
+  .controller('ReportController', ReportController)
   .directive('acmeNavbar', NavbarDirective)
   .directive('acmeMalarkey', MalarkeyDirective);
