@@ -1,5 +1,5 @@
 /**
- * @todo Complete the test
+ * @todo add the test
  * Test showResult function.
  * passing of params.
  */

@@ -1,8 +1,8 @@
 import Rx from 'rxjs/Rx';
-import _ from 'lodash';
+import { findIndex } from 'lodash';
 
 export class ReportController {
-  constructor ($log, $http, $stateParams, $state) {
+  constructor ($log, $http, $stateParams, $state, webServiceUrl) {
     'ngInject';
 
     const vm = this;
@@ -27,18 +27,17 @@ export class ReportController {
     let externalLinks = vm.pageData.links.external.data;
 
     //Quick request to get the status of the links
-    let getHeaders = (link) => $http.head(link);
-
+    let getHeaders = (link) => $http({url: webServiceUrl + 'check', method: "POST", data: {link: link} });
 
     //Updating the status
     let updateStatus = (res) => {
 
-      let url = res.config.url;
+      let url = res.data.url;
       let externalLinksArray = vm.pageData.links.external.data;
 
-      vm.pageData.links.external.data[_.findIndex(externalLinksArray, {url: url})].status = res.status;
+      vm.pageData.links.external.data[findIndex(externalLinksArray, {url: url})].status = res.data.status || '';
 
-      if(res.status != 200){
+      if(res.status !== 200 || res.data.status === 'error'){
         vm.brokenLinksCount++;
       }
 

@@ -1,11 +1,17 @@
 //Custom Css
 #report-page {
-  //height: 100vh;
   margin: 20px 0;
 }
 
-
 md-progress-circular {
   display: inline;
-  margin: 10px;
+}
+
+.external-links {
+  height: 300px;
+}
+
+.external-url {
+  overflow: hidden;
+  margin-right: 15px
 }

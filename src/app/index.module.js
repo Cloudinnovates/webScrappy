@@ -7,6 +7,7 @@ import { ReportController } from "./report-page/report.controller";
 import { onlyBroken } from "../app/components/onlyBroken/onlyBroken.filter.js";
 
 angular.module('webScrappy', ['ui.router', 'ngMaterial', 'ngMessages'])
+  .constant('webServiceUrl', 'http://localhost:3010/')
   .config(config)
   .config(routerConfig)
   .run(runBlock)

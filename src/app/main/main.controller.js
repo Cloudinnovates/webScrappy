@@ -1,34 +1,52 @@
 export class MainController {
-  constructor ($http, $state) {
+  constructor ($http, $state, webServiceUrl, $log) {
     'ngInject';
 
     const vm = this;
 
+    //start with http:// for the url
     vm.url = "http://";
 
-    const webServiceUrl = 'http://localhost:3010/scrape';
 
     // this.urlRegex = '^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?(/.*)$';
 
-    this.scrapPage = (url) => {
+    vm.scrapPage = (url) => {
 
       vm.showLoader = true;
-      //Create a head request and know the error in the url beforehand
-      $http.head(url).then(function(){
-        vm.resErr = null;
-      }, function (err) {
-        vm.showLoader = false;
-        vm.resErr = err;
-      });
 
       //Create a request to the webservice for scrapping
-      $http.post(webServiceUrl, {url: url}).then(function(res){
-        //Process only if no erro found locally.
-        if(!vm.resErr)
+      $http.post(webServiceUrl + 'scrap', {url: url}).then(function(res){
+
+        if(res.status !== 200){
+          vm.resErrCode = "CAN NOT REACH THE SERVER. ERROR CODE:" + res.status;
+          vm.showLoader = false;
+          return
+        }
+
+        if(res.data.status === 'error'){
+          vm.resErrCode = res.data.code;
+          vm.showLoader = false;
+          return
+        }
+
+        if(res.data.status && res.data.status !== 'error'){
+          vm.resErrCode = res.data.status;
+          vm.showLoader = false;
+          return
+        }
+
+        //No Error and Proceed to report page
+        if(!vm.resErrCode && res.data){
           $state.go('report', {pageData: res.data});
-      }, function () {
+        }
+
+      }, function (err) {
+
         vm.showLoader = false;
-        //Todo
+        vm.resErrCode = "CAN NOT REACH THE SERVER";
+
+        $log.debug(err);
+
       });
 
     };

@@ -2,6 +2,8 @@
 
 <div layout="row" layout-align="center center" id="report-page">
 
+
+  <!--Main Content Wrapper-->
   <div class="md-padding" md-whiteframe="3" layout="row" flex="100" flex-gt-xs="80" >
 
     <div layout="column" class="md-padding" flex="100">
@@ -10,7 +12,10 @@
       <span>{{vm.url}}</span>
 
       <h2>HTML Version</h2>
-      <span>{{vm.pageData.doctype}}</span>
+      <span>{{(vm.pageData.version == ''? 'Cannot Detect': vm.pageData.version)}}</span>
+
+      <h4>Doctype</h4>
+      <span>{{(vm.pageData.doctype == ''? 'Not Found': vm.pageData.doctype)}}</span>
 
       <h2>Page Title</h2>
       <span>{{vm.pageData.title}}</span>
@@ -18,6 +23,7 @@
       <h2>Login Form</h2>
       <span>This Page <strong>{{ (vm.pageData.loginPage ? 'CONTAINS' : 'DOES NOT CONTAIN') }}</strong> a login form</span>
 
+      <!--Headings-->
       <md-content>
         <h2>Headings</h2>
         <md-tabs md-border-bottom md-autoselect>
@@ -39,6 +45,7 @@
           </md-tab>
         </md-tabs>
       </md-content>
+      <!--/Headings-->
 
       <md-divider></md-divider>
 
@@ -59,28 +66,40 @@
       </md-input-container>
 
       <md-divider></md-divider>
-      <md-content layout-padding style="height: 300px">
+
+      <!--External Links Lists-->
+
+      <md-content layout-padding class="external-links">
+
         <md-list ng-cloak>
+
           <md-subheader class="md-sticky">{{ (vm.onlyBrokenLinks ? 'Broken Links' : 'Showing all links') }}</md-subheader>
-          <md-subheader class="md-no-sticky" ng-if="vm.brokenLinksCount <= 0">No Item</md-subheader>
+          <md-subheader class="md-no-sticky" ng-if="vm.brokenLinksCount && vm.brokenLinksCount <= 0">No Item</md-subheader>
+
           <md-list-item ng-click="navigateTo(setting.extraScreen, $event)"
                         ng-repeat="link in vm.pageData.links.external.data | onlyBroken:vm.onlyBrokenLinks as filtered_result track by $index">
-            <p style="overflow: hidden; margin-right: 15px"> {{ link.url }} </p>
+            <p class="external-url"> {{ link.url }} </p>
+
+            <!--Icons-->
             <md-progress-circular ng-if="!link.status" class="md-hue-2" md-diameter="20px"></md-progress-circular>
-            <md-icon md-svg-src="./assets/icons/broken-link.svg" ng-if="link.status && link.status != 200"></md-icon>
+            <md-icon md-svg-src="./assets/icons/broken-link.svg" ng-if="link.status && link.status != 200 && link.status !== 'error'"></md-icon>
             <md-icon md-svg-src="./assets/icons/link-button.svg" ng-if="link.status == 200"></md-icon>
+            <div ng-if="link.status == 'error'"><i class="material-icons">error</i></div>
+            <!--/Icons-->
+
           </md-list-item>
 
           <md-divider></md-divider>
         </md-list>
       </md-content>
 
+      <!--/External Links Lists-->
 
     </div>
 
 
   </div>
-
+  <!--/Main Content Wrapper-->
 </div>
 
 
