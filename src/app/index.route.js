@@ -11,7 +11,10 @@ export function routerConfig ($stateProvider, $urlRouterProvider) {
       url: '/report',
       templateUrl: 'app/report-page/report.html',
       controller: 'ReportController',
-      controllerAs: 'vm'
+      controllerAs: 'vm',
+      params: {
+        pageData: null
+      }
     });
 
   $urlRouterProvider.otherwise('/');

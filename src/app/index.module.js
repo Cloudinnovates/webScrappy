@@ -1,24 +1,16 @@
-/* global malarkey:false, moment:false */
-
 import { config } from './index.config';
 import { routerConfig } from './index.route';
 import { runBlock } from './index.run';
 import { MainController } from './main/main.controller';
-import { GithubContributorService } from '../app/components/githubContributor/githubContributor.service';
-import { WebDevTecService } from '../app/components/webDevTec/webDevTec.service';
 import { NavbarDirective } from '../app/components/navbar/navbar.directive';
-import { MalarkeyDirective } from '../app/components/malarkey/malarkey.directive';
 import { ReportController } from "./report-page/report.controller";
+import { onlyBroken } from "../app/components/onlyBroken/onlyBroken.filter.js";
 
-angular.module('webScrappy', ['ui.router', 'ngMaterial', 'toastr'])
-  .constant('malarkey', malarkey)
-  .constant('moment', moment)
+angular.module('webScrappy', ['ui.router', 'ngMaterial', 'ngMessages'])
   .config(config)
   .config(routerConfig)
   .run(runBlock)
-  .service('githubContributor', GithubContributorService)
-  .service('webDevTec', WebDevTecService)
   .controller('MainController', MainController)
   .controller('ReportController', ReportController)
-  .directive('acmeNavbar', NavbarDirective)
-  .directive('acmeMalarkey', MalarkeyDirective);
+  .directive('navbar', NavbarDirective)
+  .filter('onlyBroken', onlyBroken);

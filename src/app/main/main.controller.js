@@ -1,32 +1,38 @@
 export class MainController {
-  constructor ($timeout, webDevTec, toastr) {
+  constructor ($http, $state) {
     'ngInject';
 
-    this.awesomeThings = [];
-    this.classAnimation = '';
-    this.creationDate = 1497693450318;
-    this.toastr = toastr;
+    const vm = this;
 
-    this.activate($timeout, webDevTec);
+    vm.url = "http://";
+
+    const webServiceUrl = 'http://localhost:3010/scrape';
+
+    // this.urlRegex = '^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?(/.*)$';
+
+    this.scrapPage = (url) => {
+
+      vm.showLoader = true;
+      //Create a head request and know the error in the url beforehand
+      $http.head(url).then(function(){
+        vm.resErr = null;
+      }, function (err) {
+        vm.showLoader = false;
+        vm.resErr = err;
+      });
+
+      //Create a request to the webservice for scrapping
+      $http.post(webServiceUrl, {url: url}).then(function(res){
+        //Process only if no erro found locally.
+        if(!vm.resErr)
+          $state.go('report', {pageData: res.data});
+      }, function () {
+        vm.showLoader = false;
+        //Todo
+      });
+
+    };
+
   }
 
-  activate($timeout, webDevTec) {
-    this.getWebDevTec(webDevTec);
-    $timeout(() => {
-      this.classAnimation = 'rubberBand';
-    }, 4000);
-  }
-
-  getWebDevTec(webDevTec) {
-    this.awesomeThings = webDevTec.getTec();
-
-    angular.forEach(this.awesomeThings, (awesomeThing) => {
-      awesomeThing.rank = Math.random();
-    });
-  }
-
-  showToastr() {
-    this.toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-    this.classAnimation = '';
-  }
 }

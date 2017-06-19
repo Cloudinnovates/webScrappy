@@ -1,4 +1,4 @@
-export function config ($logProvider, toastrConfig, $locationProvider, $uiViewScrollProvider) {
+export function config ($logProvider, $locationProvider, $uiViewScrollProvider) {
   'ngInject';
 
   // Enable log
@@ -10,10 +10,4 @@ export function config ($logProvider, toastrConfig, $locationProvider, $uiViewSc
   //Scroll To Top on Route Change
   $uiViewScrollProvider.useAnchorScroll();
 
-  // Set options third-party lib
-  toastrConfig.allowHtml = true;
-  toastrConfig.timeOut = 3000;
-  toastrConfig.positionClass = 'toast-top-right';
-  toastrConfig.preventDuplicates = true;
-  toastrConfig.progressBar = true;
 }

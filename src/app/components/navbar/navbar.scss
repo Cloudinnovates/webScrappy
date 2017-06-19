@@ -1,17 +1,15 @@
-.acme-navbar-text{
-  color: white;
+md-toolbar {
+  padding: 0 20px;
+  md-input-container {
+    margin-left: 20px;
+    margin-top: 25px;
+  }
+  input {
+    color: white !important;
+  }
 }
 
-a {
-  color: black;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0;
-  line-height: 1.25em;
-}
-
-a:hover, a:focus {
-  color: greenyellow;
+.back-button {
+  padding: 25px;
+  margin-right: 20px;
 }

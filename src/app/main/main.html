@@ -1,6 +1,10 @@
+<md-content ng-if="main.showLoader">
+  <div layout="column" layout-align="center center" class="loader-block" >
+    <md-progress-circular class="md-hue-2" md-diameter="50px"></md-progress-circular>
+  </div>
+</md-content>
 
-
-  <md-content flex id="main-content">
+<md-content flex id="main-content" ng-if="!main.showLoader">
 
     <div layout="column" layout-align="center center" class="search-wrapper">
 
@@ -8,16 +12,35 @@
         <h2>Web Scrappy</h2>
       </div>
 
-        <div layout="row" layout-align="center start">
+      <form name="mainForm" novalidate>
+
+        <div layout="column" layout-align="center start">
+
           <md-input-container class="md-block">
             <label>Website URL</label>
-            <input ng-model="main.url">
+            <input  type="text" name="url" ng-model="main.url"
+                    ng-change="(main.resErr = null)"
+                   required>
+
+            <div ng-messages="mainForm.url.$error" role="alert">
+              <ng-message when="required">This field is required.</ng-message>
+              <ng-message when="pattern">Does not look like an url. Please add http:// or https://</ng-message>
+            </div>
           </md-input-container>
+
         </div>
 
+        <!--Error Block-->
+        <md-whiteframe class="md-whiteframe-1dp error-block" layout="row" layout-align="center center" ng-if="main.resErr">
+         <h3>Error ! Status Code: {{main.resErr.status}}</h3>
+        </md-whiteframe>
+
       <div class="md-block" layout-align="center start" layout="row">
-        <md-button type="submit" class="md-raised md-primary">Scrap</md-button>
+        <md-button type="submit"
+                   ng-disabled="mainForm.$invalid || mainForm.$pristine"
+                   ng-click="main.scrapPage(main.url)" class="md-raised md-primary">Scrap</md-button>
       </div>
+  </form>
 
     </div>
 

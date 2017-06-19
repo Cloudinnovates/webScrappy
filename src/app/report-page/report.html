@@ -1,10 +1,86 @@
+<navbar></navbar>
+
+<div layout="row" layout-align="center center" id="report-page">
+
+  <div class="md-padding" md-whiteframe="3" layout="row" flex="100" flex-gt-xs="80" >
+
+    <div layout="column" class="md-padding" flex="100">
+
+      <h2>Page URL</h2>
+      <span>{{vm.url}}</span>
+
+      <h2>HTML Version</h2>
+      <span>{{vm.pageData.doctype}}</span>
+
+      <h2>Page Title</h2>
+      <span>{{vm.pageData.title}}</span>
+
+      <h2>Login Form</h2>
+      <span>This Page <strong>{{ (vm.pageData.loginPage ? 'CONTAINS' : 'DOES NOT CONTAIN') }}</strong> a login form</span>
+
+      <md-content>
+        <h2>Headings</h2>
+        <md-tabs md-border-bottom md-autoselect>
+          <md-tab ng-repeat="h in vm.h"
+                  label="{{h}} - {{vm.pageData.headings[h].count}}">
+
+            <md-content class="md-padding">
+
+              <md-list ng-cloak>
+                <md-subheader class="md-no-sticky" ng-if="vm.pageData.headings[h].count <= 0">No Item</md-subheader>
+                <md-list-item ng-repeat="heading in vm.pageData.headings[h].data" ng-if="vm.pageData.headings[h].count > 0">
+                  <p> {{ heading }} </p>
+                  <md-divider></md-divider>
+                </md-list-item>
+              </md-list>
+
+            </md-content>
+
+          </md-tab>
+        </md-tabs>
+      </md-content>
+
+      <md-divider></md-divider>
+
+      <h2>Internal Links Count</h2>
+      <span>{{vm.pageData.links.internal.count}}</span>
+
+      <h2>External Links Count</h2>
+      <span>{{vm.pageData.links.external.count}}</span>
+
+      <h2>External Links Analysis:</h2>
+
+      <p>Number of Broken Links: <span ng-show="vm.analysisDone">{{ vm.brokenLinksCount }}</span>
+        <md-progress-circular ng-hide="vm.analysisDone" class="md-hue-2" md-diameter="20px"></md-progress-circular></p>
+      <md-input-container class="md-block" ng-show="vm.analysisDone">
+        <md-checkbox name="onlyBrokenLinks" ng-model="vm.onlyBrokenLinks">
+          Show only broken links.
+        </md-checkbox>
+      </md-input-container>
+
+      <md-divider></md-divider>
+      <md-content layout-padding style="height: 300px">
+        <md-list ng-cloak>
+          <md-subheader class="md-sticky">{{ (vm.onlyBrokenLinks ? 'Broken Links' : 'Showing all links') }}</md-subheader>
+          <md-subheader class="md-no-sticky" ng-if="vm.brokenLinksCount <= 0">No Item</md-subheader>
+          <md-list-item ng-click="navigateTo(setting.extraScreen, $event)"
+                        ng-repeat="link in vm.pageData.links.external.data | onlyBroken:vm.onlyBrokenLinks as filtered_result track by $index">
+            <p style="overflow: hidden; margin-right: 15px"> {{ link.url }} </p>
+            <md-progress-circular ng-if="!link.status" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+            <md-icon md-svg-src="./assets/icons/broken-link.svg" ng-if="link.status && link.status != 200"></md-icon>
+            <md-icon md-svg-src="./assets/icons/link-button.svg" ng-if="link.status == 200"></md-icon>
+          </md-list-item>
+
+          <md-divider></md-divider>
+        </md-list>
+      </md-content>
 
 
-<md-content flex id="main-content">
-
-  <h1>Report Page</h1>
+    </div>
 
 
-</md-content>
+  </div>
+
+</div>
 
 

@@ -45,7 +45,7 @@
 }
 
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto', serif;
 }
 
 [layout=row] {
@@ -76,30 +76,23 @@ section.jumbotron {
   }
 }
 
-.techs {
-  display: flex;
-  flex-flow: row wrap;
-
-  md-card {
-    width: 30%;
-
-    img.pull-right {
-      float: right;
-      width: 100px;
-    }
-  }
-}
-
-.ng-scope {
-  height: 100%;
-}
-
 .search-wrapper {
   height: 60vh;
   md-input-container {
     width: 50vw;
   }
 }
+
+.error-block {
+  padding: 10px;
+  background-color: rgb(239, 88, 51);
+  color: white;
+}
+
+.loader-block {
+  height: 80vh;
+}
+
 /**
  *  Do not remove the comment below. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

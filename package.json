@@ -1,7 +1,10 @@
 {
   "name": "scout",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "^3.10.1",
+    "rxjs": "4.0.0"
+  },
   "scripts": {
     "test": "gulp test"
   },
