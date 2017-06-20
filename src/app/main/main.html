@@ -23,13 +23,13 @@
 
           <md-input-container class="md-block">
             <label>Website URL</label>
-            <input  type="text" name="url" ng-model="main.url"
+            <input type="url" name="url" ng-model="main.url"
                     ng-change="(main.resErrCode = null)"
                    required>
 
             <div ng-messages="mainForm.url.$error" role="alert">
               <ng-message when="required">This field is required.</ng-message>
-              <ng-message when="pattern">Does not look like an url. Please add http:// or https://</ng-message>
+              <ng-message when="url">Does not look like an url. Please add http:// or https://</ng-message>
             </div>
           </md-input-container>
 

@@ -7,9 +7,6 @@ export class MainController {
     //start with http:// for the url
     vm.url = "http://";
 
-
-    // this.urlRegex = '^((http[s]?|ftp):\/)?\/?([^:\/\s]+)((\/\w+)*\/)([\w\-\.]+[^#?\s]+)(.*)?(#[\w\-]+)?(/.*)$';
-
     vm.scrapPage = (url) => {
 
       vm.showLoader = true;

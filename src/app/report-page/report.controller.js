@@ -43,6 +43,7 @@ export class ReportController {
 
     };
 
+    //When all the observales are done.
     let statusUpdateDone = () => {
       vm.analysisDone = true;
     };
