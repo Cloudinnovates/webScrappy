@@ -34,7 +34,9 @@ export class MainController {
 
         //No Error and Proceed to report page
         if(!vm.resErrCode && res.data){
-          $state.go('report', {pageData: res.data});
+          let pageData = res.data;
+          pageData.url = url
+          $state.go('report', {pageData: pageData});
         }
 
       }, function (err) {
