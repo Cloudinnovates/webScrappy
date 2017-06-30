@@ -2,6 +2,9 @@ WebScrappy
 ==================================
 Angular Material(v1) application to do a basic scrapping of web pages(Using a Web Service(scrapperService)).
 
+## Live Demo On Firebase Hosting
+[Web Scrappy App - Live DEMO](https://webscrappy-65a39.firebaseapp.com/)
+
 
 - Uses Angular Material(v1)
 - UI Router
